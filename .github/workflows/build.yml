@@ -35,3 +35,6 @@ jobs:
           CI: true
       - name: e2e tests
         run: npm run test:e2e
+        env:
+          AUTH_JWT_SECRET: some_very_important_secret
+          AUTH_JWT_EXPIRES_IN: 2592000
