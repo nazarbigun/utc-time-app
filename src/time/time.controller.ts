@@ -1,4 +1,24 @@
-import { Controller } from '@nestjs/common';
+import {
+  ClassSerializerInterceptor,
+  Controller,
+  Get,
+  UseInterceptors,
+} from '@nestjs/common';
+import { ApiOkResponse, ApiOperation } from '@nestjs/swagger';
+import { TimeService } from './time.service';
+import { UtcTimeView } from './views/utc-time.view';
 
 @Controller('time')
-export class TimeController {}
+export class TimeController {
+  constructor(private readonly timeService: TimeService) {}
+
+  @Get()
+  @UseInterceptors(ClassSerializerInterceptor)
+  @ApiOperation({ summary: 'Get UTC time' })
+  @ApiOkResponse({ description: 'Ok' })
+  async getUtcTime(): Promise<UtcTimeView> {
+    const time = this.timeService.getUtcTime();
+
+    return new UtcTimeView(time);
+  }
+}

@@ -4,6 +4,6 @@ import { TimeService } from './time.service';
 
 @Module({
   controllers: [TimeController],
-  providers: [TimeService]
+  providers: [TimeService],
 })
 export class TimeModule {}
